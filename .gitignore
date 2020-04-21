@@ -1,0 +1,20 @@
+.DS_Store
+.vscode
+blog/node_modules/
+express-blog/node_modules/
+html/node_modules/
+node_modules/
+dist/
+lib/
+packages/theme-chalk/lib
+examples/avue
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.project
+# Editor directories and files
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
