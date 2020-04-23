@@ -8,8 +8,11 @@ const handleBlogRouter = (req, res) => {
   if (method === 'GET' && req.path === '/api/blog/list') {
     const author = req.query.author || ''
     const keyword = req.query.keyword || ''
-    let data = getList(author, keyword)
-    return new SuccessModel(data)
+    const result = getList(author, keyword)
+    return result.then(data => {
+      console.log('列表', data)
+      return new SuccessModel(data)
+    })
   }
   // 详情
   if (method === 'GET' && req.path === '/api/blog/detail') {
