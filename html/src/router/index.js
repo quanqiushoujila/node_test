@@ -7,7 +7,7 @@ export default [
   },
   {
     path: '/register',
-    label: '登录页',
+    label: '注册页',
     component: LoadableComponent(import('@/view/register'))
   },
   {
@@ -15,4 +15,10 @@ export default [
     label: '列表页',
     component: LoadableComponent(import('@/view/list'))
   },
+  {
+    path: '/form',
+    label: '表单页',
+    component: LoadableComponent(import('@/view/form'))
+  },
+
 ]

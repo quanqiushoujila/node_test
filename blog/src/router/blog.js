@@ -9,43 +9,64 @@ const handleBlogRouter = (req, res) => {
     const author = req.query.author || ''
     const keyword = req.query.keyword || ''
     const result = getList(author, keyword)
+    console.log('列表')
     return result.then(data => {
       console.log('列表', data)
-      return new SuccessModel(data)
+      if (data) {
+        return new SuccessModel(data)
+      } else {
+        return new ErrorModel(message = '搜索失败')
+      }
     })
   }
   // 详情
   if (method === 'GET' && req.path === '/api/blog/detail') {
-    let id = req.query.id
-    let data = getDetail(id)
-    return new SuccessModel(data)
+    const id = req.query.id
+    if (!id) {
+      return new ErrorModel(message = '详情失败')
+    }
+    const result = getDetail(id)
+    return result.then(data => {
+      if (data) {
+        return new SuccessModel(data, message = '获取详情成功')
+      } else {
+        return new ErrorModel(message = '详情失败')
+      }
+    })
   }
   // 新增
   if (method === 'POST' && req.path === '/api/blog/create') {
-    let result = createBlog(req.body)
-    if (result) {
-      return new SuccessModel(message = '新增成功')
-    } else {
-      return new ErrorModel(message = '新增失败')
-    }
+    // console.log('新增', req.body)
+    const result = createBlog(req.body)
+    return result.then(data => {
+      if (data.id) {
+        return new SuccessModel(message = '新增成功')
+      } else {
+        return new ErrorModel(message = '新增失败')
+      }
+    })
   }
   // 编辑
   if (method === 'POST' && req.path === '/api/blog/update') {
-    let result = updateBlog(req.body)
-    if (result) {
-      return new SuccessModel(message = '编辑成功')
-    } else {
-      return new ErrorModel(message = '编辑失败')
-    }
+    const result = updateBlog(req.body)
+    return result.then(data => {
+      if (data) {
+        return new SuccessModel(message = '编辑成功')
+      } else {
+        return new ErrorModel(message = '编辑失败')
+      }
+    })
   }
   // 删除
-  if (method === 'POST' && req.path === '/api/blog/del') {
-    let result = deleteBlog(req.body)
-    if (result) {
-      return new SuccessModel(message = '删除成功')
-    } else {
-      return new ErrorModel(message = '删除失败')
-    }
+  if (method === 'POST' && req.path === '/api/blog/delete') {
+    const result = deleteBlog(req.body)
+    return result.then(data => {
+      if (data) {
+        return new SuccessModel(message = '删除成功')
+      } else {
+        return new ErrorModel(message = '删除失败')
+      }
+    })
   }
 }
 

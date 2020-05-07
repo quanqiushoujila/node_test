@@ -30,18 +30,40 @@ const serverHandle = (req, res) => {
   const url = req.url
   req.path = url.split('?')[0]
   res.setHeader('Content-type', 'application/json')
-  req.query = querystring.parse(url.split('?'))
+  req.query = querystring.parse(url.split('?')[1])
 
-  getPostData(req, res).then((data) => {
-    req.body = data
-    let blogData = handelBlogRouter(req, res)
-    if (blogData) {
-      res.end(JSON.stringify(blogData))
+  req.cookies = {}
+  const cookiesStr = req.headers.cookie || ''
+  console.log('cookiesStr', cookiesStr)
+  cookiesStr.split(';').forEach((item) => {
+    if (!item) {
       return
     }
-    let userData = handleUserRouter(req, res)
-    if (userData) {
-      res.end(JSON.stringify(userData))
+    const val = item.split('=')
+    const key = val[0].trim()
+    const value = val[1].trim()
+    req.cookies = {
+      key: value
+    }
+  })
+  console.log('第一步')
+  getPostData(req, res).then((data) => {
+    console.log('第二步')
+    req.body = data
+    console.log(req.method, req.path)
+    let blogResult = handelBlogRouter(req, res)
+    console.log('第三步', blogResult)
+    if (blogResult) {
+      blogResult.then(blogData => {
+        res.end(JSON.stringify(blogData))
+      })
+      return
+    }
+    let userResult = handleUserRouter(req, res)
+    if (userResult) {
+      userResult.then(userData => {
+        res.end(JSON.stringify(userData))
+      })
       return
     }
 
