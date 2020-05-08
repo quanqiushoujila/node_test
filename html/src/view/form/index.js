@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Form, Input, Button } from 'antd'
+import { Form, Input, Button, message } from 'antd'
+import { createPage, updatePage, getDetail } from '@/api/list'
 const layout = {
   labelCol: {
     span: 6,
@@ -15,10 +16,52 @@ const tailLayout = {
   },
 }
 class KForm extends Component {
-  onFinish = (values) => {
-    console.log(values)
+  formRef = React.createRef()
+  constructor (props) {
+    super(props)
+    this.state = {
+      state: 'create',
+      id: '',
+      form: {
+        title: '11',
+        content: '22',
+        author: '33'
+      }
+    }
   }
-
+  onFinish = (values) => {
+    if (this.state.id) {
+      values.id = this.state.id
+      updatePage(values).then(({data}) => {
+        if (data.code === 0) {
+          message.success('创建成功')
+          this.formRef.current.resetFields()
+        }
+      })
+    } else  {
+      createPage(values).then(({data}) => {
+        if (data.code === 0) {
+          message.success('更新成功')
+          this.formRef.current.resetFields()
+        }
+      })
+    }
+  }
+  componentDidMount () {
+    const result = this.getSearchParams(this.props.location.search)
+    this.setState(() => {
+      return {
+        state: result ? 'update' : 'create',
+        id: result ? result.id : ''
+      }
+    }, () => {
+      if (this.state.id) {
+        getDetail({id: this.state.id}).then(({ data }) => {
+          this.formRef.current.setFieldsValue(data.data)
+        })
+      }
+    })
+  }
   getSearchParams = (search) => {
     const params = search.split('?')[1]
     if (params) {
@@ -32,11 +75,12 @@ class KForm extends Component {
     }
     return null
   }
-  
+
   render () {
     return (
       <div>
         <Form
+          ref={this.formRef}
           {...layout}
           name="basic"
           onFinish={this.onFinish}
@@ -67,7 +111,7 @@ class KForm extends Component {
           </Form.Item>
           <Form.Item
             label="内容"
-            name="author"
+            name="content"
             rules={[
               {
                 required: true,

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { getList } from '@/api/list'
-import { List, Input, Button } from 'antd'
+import { List, Input } from 'antd'
 import { Link } from 'react-router-dom'
 const { Search } = Input
 
@@ -16,7 +16,7 @@ class KList extends Component {
   componentDidMount () {
     this.getData()
   }
-  
+
   getData = () => {
     let params = {}
     if (this.state.title) {
@@ -57,9 +57,9 @@ class KList extends Component {
           />
           <Link to={`/form`}>新增</Link>
         </div>
-        <List 
+        <List
           bordered
-          dataSource={this.state.data} 
+          dataSource={this.state.data}
           renderItem={item => (
             <List.Item>
               <Link to={`/detail?id=${item.id}`}>

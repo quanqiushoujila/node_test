@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { getDetail } from '@/api/list'
-import { useLocation } from 'react-router-dom'
 
 class Detail extends Component {
   constructor (props) {
