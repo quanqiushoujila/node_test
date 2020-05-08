@@ -9,7 +9,7 @@ function md5 (content) {
 }
 
 function genPassword (pw) {
-  const str = `password=${password}&key=${SECRET_KEY}`
+  const str = `password=${pw}&key=${SECRET_KEY}`
   return md5(str)
 }
 

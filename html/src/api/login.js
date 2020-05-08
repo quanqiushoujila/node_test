@@ -1,24 +1,24 @@
 import request from '@/util/request'
 
 export const login = (data) => {
-  request({
-    url: '/login',
+  return request({
+    url: '/user/login',
     method: 'post',
     data: data,
   })
 }
 
 export const logout = (data) => {
-  request({
-    url: '/login',
+  return request({
+    url: '/user/logout',
     method: 'post',
     data: data,
   })
 }
 
 export const register = (data) => {
-  request({
-    url: '/register',
+  return request({
+    url: '/user/register',
     method: 'post',
     data: data,
   })

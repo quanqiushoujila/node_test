@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { Form, Input, Button } from 'antd'
+import { Form, Input, Button, message } from 'antd'
 import { Link } from 'react-router-dom'
 import './style.less'
-
+import { register } from '@/api/login'
 const layout = {
   labelCol: {
     span: 6,
@@ -26,7 +26,11 @@ class Login extends Component {
     }
   }
   onFinish = (values) => {
-    
+    register(values).then(({ data }) => {
+      if (data.code === 0) {
+        message.success('注册成功')
+      }
+    })
   }
 
   onFinishFailed = (errorInfo) => {
@@ -45,14 +49,19 @@ class Login extends Component {
           onFinishFailed={this.onFinishFailed}>
           <Form.Item
             label="用户名"
-            name={form.username}
+            name="username"
             rules={[{ required: true, message: '请输入用户名' }]}>
             <Input />
           </Form.Item>
-
+          <Form.Item
+            label="真实名称"
+            name="realname"
+            rules={[{ required: true, message: '请输入真实名称' }]}>
+            <Input />
+          </Form.Item>
           <Form.Item
             label="密码"
-            name={form.password}
+            name="password"
             rules={[{ required: true, message: '请输入密码' }]}>
             <Input.Password />
           </Form.Item>

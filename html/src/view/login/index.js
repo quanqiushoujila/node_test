@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Form, Input, Button } from 'antd'
+import { Form, Input, Button, message } from 'antd'
 import { Link } from 'react-router-dom'
 import './style.less'
+import { login } from '@/api/login'
 
 const layout = {
   labelCol: {
@@ -19,14 +20,15 @@ const tailLayout = {
 };
 
 class Login extends Component {
-  state = {
-    form: {
-      username: '',
-      password: ''
-    }
-  }
+
   onFinish = (values) => {
-    
+    login(values).then(({ data }) => {
+      if (data.code === 0) {
+        message.success('登录成功')
+      } else {
+        message.warning('登录失败')
+      }
+    })
   }
 
   onFinishFailed = (errorInfo) => {
@@ -34,7 +36,6 @@ class Login extends Component {
   }
 
   render () {
-    let { form } = this.state
     return (
       <div className="form-wrapper">
         <h2 className="title">登录</h2>
@@ -45,14 +46,13 @@ class Login extends Component {
           onFinishFailed={this.onFinishFailed}>
           <Form.Item
             label="用户名"
-            name={form.username}
+            name="username"
             rules={[{ required: true, message: '请输入用户名' }]}>
             <Input />
           </Form.Item>
-
           <Form.Item
             label="密码"
-            name={form.password}
+            name="password"
             rules={[{ required: true, message: '请输入密码' }]}>
             <Input.Password />
           </Form.Item>
