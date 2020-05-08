@@ -9,9 +9,9 @@ const handleBlogRouter = (req, res) => {
     const author = req.query.author || ''
     const keyword = req.query.keyword || ''
     const result = getList(author, keyword)
-    console.log('列表')
+    // console.log('列表')
     return result.then(data => {
-      console.log('列表', data)
+      // console.log('列表', data)
       if (data) {
         return new SuccessModel(data)
       } else {

@@ -34,7 +34,7 @@ const serverHandle = (req, res) => {
 
   req.cookies = {}
   const cookiesStr = req.headers.cookie || ''
-  console.log('cookiesStr', cookiesStr)
+  // console.log('cookiesStr', cookiesStr)
   cookiesStr.split(';').forEach((item) => {
     if (!item) {
       return
@@ -46,13 +46,13 @@ const serverHandle = (req, res) => {
       key: value
     }
   })
-  console.log('第一步')
+  // console.log('第一步')
   getPostData(req, res).then((data) => {
-    console.log('第二步')
+    // console.log('第二步')
     req.body = data
-    console.log(req.method, req.path)
+    // console.log(req.method, req.path)
     let blogResult = handelBlogRouter(req, res)
-    console.log('第三步', blogResult)
+    // console.log('第三步', blogResult)
     if (blogResult) {
       blogResult.then(blogData => {
         res.end(JSON.stringify(blogData))

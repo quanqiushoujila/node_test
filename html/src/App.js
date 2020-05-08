@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import routers from '@/router'
 
 function App() {
@@ -12,6 +12,8 @@ function App() {
               return <Route path={item.path} key={item.label} component={item.component}/>
             })
           }
+
+          <Redirect path="/" to="/login" />
         </Switch>
       </Router>
      </div>

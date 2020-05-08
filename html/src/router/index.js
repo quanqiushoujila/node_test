@@ -20,5 +20,9 @@ export default [
     label: '表单页',
     component: LoadableComponent(import('@/view/form'))
   },
-
+  {
+    path: '/detail',
+    label: '详情页',
+    component: LoadableComponent(import('@/view/detail'))
+  },
 ]

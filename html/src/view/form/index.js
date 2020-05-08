@@ -15,10 +15,24 @@ const tailLayout = {
   },
 }
 class KForm extends Component {
-  onFinish: () => {
-
+  onFinish = (values) => {
+    console.log(values)
   }
 
+  getSearchParams = (search) => {
+    const params = search.split('?')[1]
+    if (params) {
+      let obj = {}
+      const arr = params.split('&')
+      arr.forEach((item) => {
+        let result = item.split('=')
+        obj[result[0]] = result[1]
+      })
+      return obj
+    }
+    return null
+  }
+  
   render () {
     return (
       <div>
