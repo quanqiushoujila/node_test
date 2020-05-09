@@ -1,6 +1,5 @@
-import { ErrorModel } from '../model/resModel'
-
-export default (req, res, next) => {
+const ErrorModel = require('../model/resModel')
+const loginCheck = (req, res, next) => {
   if (req.session.username) {
     next()
   } else {
@@ -9,3 +8,4 @@ export default (req, res, next) => {
     )
   }
 }
+module.exports = loginCheck

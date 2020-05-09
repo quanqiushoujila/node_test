@@ -5,13 +5,16 @@ const loginCheck = require('../middleware/loginCheck')
 let router = express.Router()
 
 router.get('/list', loginCheck, (req, res, next) => {
+  console.log('list列表')
   const author = req.query.author || ''
   const keyword = req.query.keyword || ''
   let result = getList(author, keyword).then(data => {
     if (data) {
-        return new SuccessModel(data)
-      } else {
-        return new ErrorModel(message = '搜索失败')
-      }
+      res.json(new SuccessModel(data))
+    } else {
+      res.json(new ErrorModel(message = '搜索失败'))
+    }
   })
 })
+
+module.exports = router
