@@ -52,7 +52,7 @@ const serverHandle = (req, res) => {
     const key = val[0].trim()
     const value = val[1].trim()
     req.cookies = {
-      key: value
+      [key]: value
     }
   })
 
@@ -64,7 +64,6 @@ const serverHandle = (req, res) => {
     set(userId, {})
   }
   req.sessionId = userId
-
   get(req.sessionId).then((sessionData) => {
     if (sessionData == null) {
       // 初始化 redis 中的 session 值

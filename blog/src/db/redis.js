@@ -17,6 +17,7 @@ function set(key, val) {
 function get(key) {
   const promise = new Promise((resolve, reject) => {
     redisClient.get(key, (err, val) => {
+
       if (err) {
         reject(err)
         return
@@ -25,7 +26,6 @@ function get(key) {
         resolve(null)
         return
       }
-
       try {
         resolve(
           JSON.parse(val)
