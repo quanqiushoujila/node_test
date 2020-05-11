@@ -1,6 +1,6 @@
 const ErrorModel = require('../model/resModel')
 const loginCheck = (req, res, next) => {
-  if (req.session.username) {
+  if (req.session && req.session.username) {
     next()
   } else {
     res.json(
