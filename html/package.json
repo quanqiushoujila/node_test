@@ -8,7 +8,7 @@
     "@testing-library/user-event": "^7.1.2",
     "antd": "^4.1.4",
     "antd-dayjs-webpack-plugin": "^1.0.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "crypto-js": "^4.0.0",
     "http-proxy-middleware": "^1.0.3",
     "nprogress": "^0.2.0",
